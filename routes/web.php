@@ -16,6 +16,8 @@ Route::get('contacto', 'FrontController@contacto');
 Route::get('reviews', 'FrontController@reviews');
 
 Route::resource('movie', 'MovieController');
+Route::resource('usuario', 'UsuarioController');
+
 
 // Route::get('/', function () {
 //     return view('welcome');
