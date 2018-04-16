@@ -4,19 +4,26 @@ namespace Cinema\Http\Controllers;
 use Cinema\User;
 use Redirect;
 use Session;
+use Cinema\Http\Requests\UserCreateRequest;
+use Cinema\Http\Requests\UserUpdateRequest;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('admin', ['only' => ['create', 'edit', 'show']]);
+    }
     /**
+
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {   
-        $users = User::All();
-        return view('usuario.index', compact('users'));
+        return view ('usuario.index');
     }
 
     /**
@@ -35,7 +42,7 @@ class UsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserCreateRequest $request)
     {
         User::create([
             'name' => $request['name'],
@@ -54,7 +61,8 @@ class UsuarioController extends Controller
      */
     public function show($id)
     {
-        //
+        $users = User::paginate(5);
+        return view('usuario.show', compact('users'));
     }
 
     /**
@@ -66,7 +74,7 @@ class UsuarioController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('usuario.edit',[ 'user' => $user ]);
+        return view('usuario.editar',[ 'user' => $user ]);
     }
 
     /**
@@ -76,15 +84,15 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
-       $user = User::find($id);
-       $user->fill($request->all());
-       $user->save();
+     $user = User::find($id);
+     $user->fill($request->all());
+     $user->save();
 
-       Session::flash('message',' Usuario actualizado correctamente');
-       return Redirect::to('/usuario');
-    }
+     Session::flash('message',' Usuario actualizado correctamente');
+     return Redirect::to('/usuario');
+ }
 
     /**
      * Remove the specified resource from storage.
@@ -94,6 +102,11 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+
+        Session::flash('message',' Usuario Eliminado correctamente');
+        return Redirect::to('/usuario');
     }
 }
+

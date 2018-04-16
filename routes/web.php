@@ -14,9 +14,11 @@
 Route::get('/', 'FrontController@index');
 Route::get('contacto', 'FrontController@contacto');
 Route::get('reviews', 'FrontController@reviews');
+Route::get('logout', 'LogController@logout');
 
 Route::resource('movie', 'MovieController');
 Route::resource('usuario', 'UsuarioController');
+Route::resource('log', 'LogController');
 
 
 // Route::get('/', function () {
