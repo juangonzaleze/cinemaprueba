@@ -15,9 +15,11 @@ Route::get('/', 'FrontController@index');
 Route::get('contacto', 'FrontController@contacto');
 Route::get('reviews', 'FrontController@reviews');
 Route::get('logout', 'LogController@logout');
+Route::get('generos', 'GeneroController@listing');
 
 Route::resource('movie', 'MovieController');
 Route::resource('usuario', 'UsuarioController');
+Route::resource('genero', 'GeneroController');
 Route::resource('log', 'LogController');
 
 

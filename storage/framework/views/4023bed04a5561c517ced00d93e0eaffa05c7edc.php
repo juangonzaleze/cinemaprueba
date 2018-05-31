@@ -9,10 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
-    {!!Html::style('css/bootstrap.min.css')!!}
-    {!!Html::style('css/metisMenu.min.css')!!}
-    {!!Html::style('css/sb-admin-2.css')!!}
-    {!!Html::style('css/font-awesome.min.css')!!}
+    <?php echo Html::style('css/bootstrap.min.css'); ?>
+
+    <?php echo Html::style('css/metisMenu.min.css'); ?>
+
+    <?php echo Html::style('css/sb-admin-2.css'); ?>
+
+    <?php echo Html::style('css/font-awesome.min.css'); ?>
+
 
 
 </head>
@@ -39,7 +43,7 @@
              <li class="dropdown">
 
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                     {!!Auth::user()->name!!}<i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                     <?php echo Auth::user()->name; ?><i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
@@ -56,27 +60,27 @@
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
-                    @if (Auth::user()->id == 1)
+                    <?php if(Auth::user()->id == 1): ?>
                     <li>
-                        <a href="{!!url('usuario')!!}"><i class="fa fa-users fa-fw"></i> Usuario<span class="fa arrow"></span></a>
+                        <a href="<?php echo url('usuario'); ?>"><i class="fa fa-users fa-fw"></i> Usuario<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{!!url('usuario/create')!!}"><i class='fa fa-plus fa-fw'></i> Agregar</a>
+                                <a href="<?php echo url('usuario/create'); ?>"><i class='fa fa-plus fa-fw'></i> Agregar</a>
                             </li>
                             <li>
-                                <a href="{!!url('usuario/show')!!}"><i class='fa fa-list-ol fa-fw'></i> Usuarios</a>
+                                <a href="<?php echo url('usuario/show'); ?>"><i class='fa fa-list-ol fa-fw'></i> Usuarios</a>
                             </li>
                         </ul>
                     </li>
-                    @endif
+                    <?php endif; ?>
                     <li>
                         <a href="#"><i class="fa fa-film fa-fw"></i> Pelicula<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{!!url('movie/create')!!}"><i class='fa fa-plus fa-fw'></i> Agregar</a>
+                                <a href="<?php echo url('movie/create'); ?>"><i class='fa fa-plus fa-fw'></i> Agregar</a>
                             </li>
                             <li>
-                                <a href="{!!url('movie/')!!}"><i class='fa fa-list-ol fa-fw'></i> Peliculas</a>
+                                <a href="<?php echo url('movie/'); ?>"><i class='fa fa-list-ol fa-fw'></i> Peliculas</a>
                             </li>
                         </ul>
                     </li>
@@ -85,10 +89,10 @@
                         <a href="#"><i class="fa fa-child fa-fw"></i> Genero<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{!!url('genero/create')!!}"><i class='fa fa-plus fa-fw'></i> Agregar</a>
+                                <a href="<?php echo url('genero/create'); ?>"><i class='fa fa-plus fa-fw'></i> Agregar</a>
                             </li>
                             <li>
-                                <a href="{!!url('genero')!!}"><i class='fa fa-list-ol fa-fw'></i> Generos</a>
+                                <a href="<?php echo url('genero'); ?>"><i class='fa fa-list-ol fa-fw'></i> Generos</a>
                             </li>
                         </ul>
                     </li>
@@ -100,18 +104,21 @@
     </nav>
 
     <div id="page-wrapper">
-       @yield('content')
+       <?php echo $__env->yieldContent('content'); ?>
    </div>
 
 </div>
-{!!Html::script('js/jquery.min.js')!!}
-{!!Html::script('js/bootstrap.min.js')!!}
-{!!Html::script('js/metisMenu.min.js')!!}
-{!!Html::script('js/sb-admin-2.js')!!}}
+<?php echo Html::script('js/jquery.min.js'); ?>
+
+<?php echo Html::script('js/bootstrap.min.js'); ?>
+
+<?php echo Html::script('js/metisMenu.min.js'); ?>
+
+<?php echo Html::script('js/sb-admin-2.js'); ?>}
 
 
-@section('scripts')
-@show
+<?php $__env->startSection('scripts'); ?>
+<?php echo $__env->yieldSection(); ?>
 
 
 </body>

@@ -4,21 +4,28 @@ namespace Cinema\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Cinema\Genre;
-use Cinema\Movie;
-use Redirect;
 
-class MovieController extends Controller
+class GeneroController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function listing()
     {
-        $movies = Movie::paginate(4);
-        return view('pelicula.index', compact('movies')); 
-    }
+     $genres = Genre::all();
+
+     return response()->json(
+        $genres->toArray()
+    );
+ }
+
+ public function index()
+ {
+    return view('genero.index');
+}
 
     /**
      * Show the form for creating a new resource.
@@ -27,8 +34,7 @@ class MovieController extends Controller
      */
     public function create()
     {
-        $genres = Genre::pluck('genre', 'id');
-        return view('pelicula.create', compact('genres'));
+        return view('genero.create');
     }
 
     /**
@@ -39,8 +45,12 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        $movie = Movie::create($request->all());
-        return Redirect::to('/movie');
+        if ($request->ajax()){
+            Genre::create($request->all());
+            return response()->json([
+                "mensaje"=> "creado"     
+            ]);
+        }
     }
 
     /**
@@ -62,9 +72,10 @@ class MovieController extends Controller
      */
     public function edit($id)
     {
-        $movie = Movie::find($id);
-        $genres = Genre::pluck('genre', 'id');
-        return view('pelicula.edit',  compact('movie', 'genres'));
+        $genre = Genre::find($id);
+        return response()->json(
+            $genre->toArray()
+        );
     }
 
     /**
@@ -76,12 +87,13 @@ class MovieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $movie = Movie::find($id);
-        $movie->fill($request->all());
-        $movie->save();
+        $genre = Genre::find($id);
+        $genre->fill($request->all());
+        $genre->save();
 
-        // Session::flash('message',' Usuario actualizado correctamente');
-        return Redirect::to('/movie');
+        return response()->json([
+            "mensaje" => "listo"
+        ]);
     }
 
     /**
@@ -92,9 +104,11 @@ class MovieController extends Controller
      */
     public function destroy($id)
     {
-    $movie = Movie::find($id);
-    $movie->delete();
+     $genre = Genre::find($id);
+     $genre->delete();
 
-    return Redirect::route('movie.index');
-  }
+     return response()->json([
+        "mensaje" => "Eliminado"
+    ]);
+ }
 }

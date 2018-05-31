@@ -17,6 +17,7 @@ class CreateMoviesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('cast');
+            $table->string('path');
             $table->string('direction');
             $table->string('duration');
             $table->timestamps();

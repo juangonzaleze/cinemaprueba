@@ -50,7 +50,8 @@ class UsuarioController extends Controller
             'password' => bcrypt($request['password']),
         ]);
 
-        return redirect('/usuario')->with('message', 'store');
+     Session::flash('message',' Usuario Creado correctamente');
+     return Redirect::to('/usuario/show');
     }
 
     /**
@@ -59,9 +60,12 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $users = User::paginate(5);
+        $users = User::paginate(2);
+        if($request->ajax()){
+            return response()->json(view('usuario.users', compact('users'))->render());
+        }
         return view('usuario.show', compact('users'));
     }
 
